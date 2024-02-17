@@ -14,4 +14,4 @@ fig = px.imshow(data)
 st.plotly_chart(fig)
 
 
-   
+    
