@@ -7,5 +7,10 @@ import plotly.express as px
 
 
 st.markdown("# このアプリの使い方")
-st.markdown("## singleheatmap")
-st.markdown("細胞名と遺伝子発現データが記載されたcsvファイルをドラッグアンドドロップするとheatmapが自動で描画されます")
+st.markdown("### 以下のフォームにcsvファイルをドラッグ&ドロップしてください")
+
+uploaded_file = st.file_uploader("Choose a file", type="csv")
+
+if uploaded_file is not None:
+
+    # Can be used wherever a 
