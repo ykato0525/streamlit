@@ -25,5 +25,8 @@ if 'data' in st.session_state:
     fig = go.Figure(data=bar)
     st.plotly_chart(fig)
 
+else:
+    st.write("データを入力してください")
+
 
 # 棒グラフの描画
