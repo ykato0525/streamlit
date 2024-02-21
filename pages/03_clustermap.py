@@ -4,8 +4,7 @@ import seaborn as sns
 import plotly.figure_factory as ff
 import plotly.graph_objects as go
 import plotly.express as px
-
-
+import os
 
 
 # テキストデータに沿ってテーブルデータを抽出する
@@ -14,10 +13,21 @@ if 'data' in st.session_state:
 
     st.markdown("# 複数遺伝子の発現を閲覧する")
 
-    demo_sets = ["gene_1", "gene_2", "gene_3"]
+    ### 遺伝子発現の一覧を取得する
+    dir_path = "./pages/genesets"
+    files_file = [
+        f for f in os.listdir(dir_path) if os.path.isfile(os.path.join(dir_path, f))
+    ]
+    demo_sets = ["gene1", "gene2", "gene3"]
 
-    gene_list = ["all", 
-                "demo"]
+
+
+    gene_list = ["all", "demo_sets"]
+
+    for i in range(len(files_file)):
+        gene_list.append(files_file[i])
+
+    print(gene_list)
 
     # データセットを選択できるようにする
     geneset = st.selectbox(label="閲覧したいデータセットを選択してください", options=gene_list)
@@ -25,6 +35,11 @@ if 'data' in st.session_state:
     # データセットを抽出する
     if geneset == "demo":
         data = data.loc[demo_sets]
+    elif geneset != "all" and geneset != "demo":
+        gene_df = pd.read_table("./pages/genesets/"+geneset, sep="\t", header=None)
+        genes = list(gene_df[0])
+        valid_indices = [idx for idx in genes if idx in data.index]
+        data = data.loc[valid_indices]
 
     # fig = px.imshow(data,
     #                 height=2000,

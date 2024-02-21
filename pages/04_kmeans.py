@@ -47,8 +47,6 @@ if 'data' in st.session_state:
 
     # clusterでソート
     data_sorted = data.sort_values('Cluster')
-    # dfはあなたのDataFrameの変数名です
-    data_sorted = data.sort_values('Cluster').drop('Cluster', axis=1)
 
 
     fig = px.imshow(data_sorted.drop('Cluster', axis=1), aspect='auto')
